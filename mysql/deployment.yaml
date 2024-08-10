@@ -15,7 +15,6 @@ spec:
     spec:
       containers:
         - image: mysql:5.7
-          # image: mariadb:10.11.7-jammy
           name: mysql
           env:
             - name: MYSQL_ROOT_PASSWORD
@@ -31,6 +30,6 @@ spec:
       volumes:
         - name: mysql-local-storage
           hostPath:
-            path: ~/home/vihu/k8s-cluster
+            path: /home/vihu/k8s-cluster/mysql-data
             type: DirectoryOrCreate
 

@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -10,7 +9,6 @@ spec:
       maxUnavailable: 0
       maxSurge: 1
   replicas: 2
-  # replicas: 10000
   selector:
     matchLabels:
       role: wordpress
@@ -36,18 +34,18 @@ spec:
           ports:
             - containerPort: 80
               protocol: TCP
-                #          readinessProbe:
-            #            httpGet:
-              #              path: /
-                #              port: 80
-                #            initialDelaySeconds: 5
-              #              periodSeconds: 5
-              #            successThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 1
           volumeMounts:
-            # name must match the volume name below
             - name: wordpressfiles
               mountPath: /var/www/html/wp-content
       volumes:
         - name: wordpressfiles
           hostPath:
             path: /home/vihu/k8s-cluster
+
